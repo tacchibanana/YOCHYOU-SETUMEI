@@ -17,10 +17,7 @@
   --teal-lt:#E6F4F1;
   --accent: #C0392B;
   --amber:  #D4860A;
-  --green:  #1E8449;
-  --mid-c:  #D68910;
   --paper:  #F5F7F4;
-  --rule:   #D0D5CB;
   --white:  #FFFFFF;
 }
 
@@ -32,128 +29,113 @@ body {
   margin: 0 auto;
 }
 
-/* ── HEADER ── */
 header { background: var(--navy); position: relative; overflow: hidden; padding: 0; }
 .hdr-stripe {
   height: 6px;
-  background: linear-gradient(90deg,
-    #117A65  0% 25%,
-    #D68910 25% 50%,
-    #C0392B 50% 75%,
-    #2E86C1 75% 100%
-  );
+  background: linear-gradient(90deg, #117A65 0% 33%, #D4860A 33% 66%, #C0392B 66% 100%);
 }
-.hdr-body {
-  padding: 20px 32px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative; z-index: 1;
-}
-.hdr-body::before {
-  content: '＋';
-  position: absolute;
-  font-size: 300px;
-  color: rgba(255,255,255,0.025);
-  right: 0; top: -60px;
-  line-height: 1;
-  font-family: 'Oswald', sans-serif;
-  pointer-events: none;
-}
-.hdr-eyebrow {
-  font-family: 'Oswald', sans-serif;
-  font-size: 10px; letter-spacing: 3.5px;
-  color: #E8C16A; text-transform: uppercase; margin-bottom: 6px;
-}
-.hdr-title {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 34px; font-weight: 900;
-  color: white; line-height: 1.1; letter-spacing: -1px;
-}
+.hdr-body { padding: 20px 32px 16px; display: flex; justify-content: space-between; align-items: flex-end; }
+.hdr-eyebrow { font-family: 'Oswald', sans-serif; font-size: 10px; letter-spacing: 3.5px; color: #E8C16A; text-transform: uppercase; margin-bottom: 6px; }
+.hdr-title { font-family: 'Noto Sans JP', sans-serif; font-size: 34px; font-weight: 900; color: white; line-height: 1.1; letter-spacing: -1px; }
 .hdr-title span { color: #E8C16A; }
 .hdr-sub { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 7px; }
-.hdr-right { text-align: right; flex-shrink: 0; }
-.version-tag {
-  background: var(--accent);
-  color: white; font-family: 'Oswald', sans-serif;
-  font-size: 13px; letter-spacing: 2px;
-  padding: 4px 14px; border-radius: 3px;
-  display: inline-block; margin-bottom: 8px;
-}
-.score-badges { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
-.score-badge {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.85);
-  font-size: 10px; padding: 3px 10px;
-  border-radius: 3px; letter-spacing: 1px;
-}
 
-/* ── HERO BAND ── */
-.hero-band {
-  background: var(--teal);
-  padding: 10px 32px;
-  display: flex; align-items: center; gap: 10px;
-}
+.hero-band { background: var(--teal); padding: 10px 32px; display: flex; align-items: center; gap: 10px; }
 .hero-band-text { font-size: 13px; font-weight: 700; color: white; line-height: 1.5; }
-.hero-band-text strong { font-size: 15px; display: block; }
 .hero-icon { font-size: 26px; flex-shrink: 0; }
 
-/* ── BODY ── */
-.body-wrap {
-  background: var(--paper);
-  padding: 22px 26px 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-/* ── SECTION TITLES ── */
-.sec-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: 11px; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--teal);
-  border-bottom: 2px solid var(--teal);
-  padding-bottom: 5px; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 7px;
-}
+.body-wrap { background: var(--paper); padding: 22px 26px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sec-title { font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 5px; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
 .sec-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card { background: white; border-radius: 6px; padding: 14px 16px; box-shadow: 0 1px 8px rgba(13,27,42,0.07); }
 
-/* ── CARD ── */
-.card {
-  background: white; border-radius: 6px; padding: 14px 16px;
-  box-shadow: 0 1px 8px rgba(13,27,42,0.07), 0 0 0 1px rgba(0,0,0,0.04);
-}
-
-/* ── TARGET ── */
-.target-wrap { grid-column: 1 / 3; }
+.full-width { grid-column: 1 / 3; }
 .target-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.target-item {
-  display: flex; gap: 10px; align-items: flex-start;
-  background: #EEF5F2; border-radius: 6px;
-  padding: 11px 12px; border-left: 4px solid var(--teal);
-}
-.target-item.b { border-left-color: var(--amber); background: #FDF8EE; }
-.target-item.c { border-left-color: #2E86C1; background: #EEF4FA; }
-.t-emoji { font-size: 24px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-.t-head { font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px; line-height: 1.5; }
-.t-head em { font-style: normal; color: var(--accent); }
+.target-item { display: flex; gap: 10px; align-items: flex-start; background: #EEF5F2; border-radius: 6px; padding: 11px 12px; border-left: 4px solid var(--teal); }
+.t-emoji { font-size: 24px; flex-shrink: 0; }
+.t-head { font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
 .t-desc { font-size: 10.5px; color: #555; line-height: 1.6; }
 
-/* ── SCORES ── */
-.scores-wrap { grid-column: 1 / 3; }
-.scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.score-card { border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(0,0,0,0.07); }
-.score-card-hdr {
-  padding: 9px 14px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.score-card-hdr.qsofa { background: #162B45; }
-.score-card-hdr.news2 { background: #117A65; }
-.score-card-name {
-  font-family: 'Oswald', sans-serif;
-  font-size: 17px; font-weight: 700; color: white; letter-spacing: 1px;
-}
-.score-card-full { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 1px; }
-.score-card-badge {
-  background: rgba(255,255,255,0.
+.access-section { display: flex; align-items: center; gap: 20px; }
+#qr-code { width: 100px; height: 100px; }
+.qr-text { font-size: 12px; line-height: 1.8; color: #333; }
+
+footer { background: var(--ink); color: rgba(255,255,255,0.4); font-size: 9px; text-align: center; padding: 10px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-stripe"></div>
+  <div class="hdr-body">
+    <div>
+      <div class="hdr-eyebrow">Clinical Decision Support System</div>
+      <div class="hdr-title">重症化<span>予測アプリ</span></div>
+      <div class="hdr-sub">臨床現場での迅速なリスク評価と判断を強力にサポート。</div>
+    </div>
+  </div>
+</header>
+
+<div class="hero-band">
+  <div class="hero-icon">🏥</div>
+  <div class="hero-band-text">
+    <strong>臨床推論を加速する。重症化リスクを即座に判定。</strong>
+    医療スタッフの判断を支援し、早期対応を可能にする決定支援ツールです。
+  </div>
+</div>
+
+<div class="body-wrap">
+  <div class="card full-width">
+    <div class="sec-title"><span class="dot"></span>本ツールの活用シーン</div>
+    <div class="target-grid">
+      <div class="target-item">
+        <div class="t-emoji">⏱️</div>
+        <div>
+          <div class="t-head">緊急時の迅速なリスク評価</div>
+          <div class="t-desc">qSOFAやNEWS2等のスコアリングを即時に計算。対応の優先順位をサポートします。</div>
+        </div>
+      </div>
+      <div class="target-item">
+        <div class="t-emoji">📋</div>
+        <div>
+          <div class="t-head">記録・共有の効率化</div>
+          <div class="t-desc">判定結果をコピーし、電子カルテ等への転記をスムーズに行えます。</div>
+        </div>
+      </div>
+      <div class="target-item">
+        <div class="t-emoji">🎓</div>
+        <div>
+          <div class="t-head">教育・シミュレーション</div>
+          <div class="t-desc">症例に基づいたスコアの変化をシミュレーションし、臨床推論のトレーニングに活用。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card full-width access-section">
+    <div id="qr-code"></div>
+    <div class="qr-text">
+      <strong>アプリへアクセス</strong><br>
+      左記のQRコード、またはURLからブラウザでご利用いただけます。<br>
+      インストール不要ですぐに利用可能です。<br>
+      URL: https://example.com/app
+    </div>
+  </div>
+</div>
+
+<footer>
+  本ツールは臨床判断を支援するための参考情報を提供するものです。実際の診断・治療は医師の判断に基づき行ってください。
+</footer>
+
+<script>
+  new QRCode(document.getElementById("qr-code"), {
+    text: "https://example.com/app",
+    width: 100,
+    height: 100,
+    colorDark: "#162B45",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+</script>
+</body>
+</html>
