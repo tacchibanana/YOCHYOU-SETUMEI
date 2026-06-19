@@ -1,159 +1,1004 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>重症化予測アプリ リーフレット</title>
+<title>予兆キャッチャー Pro+ リーフレット</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=BIZ+UDPGothic:wght@400;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
-  --ink:    #0D1B2A;
-  --navy:   #162B45;
-  --blue:   #1B5299;
-  --teal:   #117A65;
-  --teal-lt:#E6F4F1;
-  --accent: #C0392B;
-  --amber:  #D4860A;
-  --green:  #1E8449;
-  --mid-c:  #D68910;
-  --paper:  #F5F7F4;
-  --rule:   #D0D5CB;
-  --white:  #FFFFFF;
+–ink:     #0D1B2A;
+–navy:    #1A3050;
+–blue:    #1B5299;
+–teal:    #0E7C7B;
+–teal-lt: #E6F4F4;
+–accent:  #D4600A;
+–amber:   #E8922A;
+–danger:  #C0392B;
+–safe:    #1E8449;
+–paper:   #F5F7F2;
+–rule:    #D4D9CE;
+–white:   #FFFFFF;
+
+/* NEWS2 risk colors */
+–low:     #27AE60;
+–mid:     #E8922A;
+–high:    #C0392B;
 }
 
 body {
-  font-family: 'BIZ UDPGothic', 'Noto Sans JP', sans-serif;
-  background: #B5BCBF;
-  color: var(--ink);
-  width: 210mm;
-  margin: 0 auto;
+font-family: ‘BIZ UDPGothic’, ‘Noto Sans JP’, sans-serif;
+background: #B8BEC4;
+color: var(–ink);
+width: 210mm;
+margin: 0 auto;
 }
 
 /* ── HEADER ── */
-header { background: var(--navy); position: relative; overflow: hidden; padding: 0; }
+header {
+background: var(–navy);
+position: relative;
+overflow: hidden;
+padding: 0;
+}
 .hdr-stripe {
-  height: 6px;
-  background: linear-gradient(90deg,
-    #117A65  0% 25%,
-    #D68910 25% 50%,
-    #C0392B 50% 75%,
-    #2E86C1 75% 100%
-  );
+height: 6px;
+background: linear-gradient(
+90deg,
+var(–safe)   0%   25%,
+var(–amber)  25%  50%,
+var(–danger) 50%  75%,
+#8E44AD       75% 100%
+);
 }
 .hdr-body {
-  padding: 20px 32px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative; z-index: 1;
+padding: 20px 32px 16px;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+position: relative;
+z-index: 1;
 }
 .hdr-body::before {
-  content: '＋';
-  position: absolute;
-  font-size: 300px;
-  color: rgba(255,255,255,0.025);
-  right: 0; top: -60px;
-  line-height: 1;
-  font-family: 'Oswald', sans-serif;
-  pointer-events: none;
+content: ‘⚠’;
+position: absolute;
+font-size: 260px;
+color: rgba(255,255,255,0.03);
+right: 10px;
+top: -40px;
+line-height: 1;
+pointer-events: none;
 }
 .hdr-eyebrow {
-  font-family: 'Oswald', sans-serif;
-  font-size: 10px; letter-spacing: 3.5px;
-  color: #E8C16A; text-transform: uppercase; margin-bottom: 6px;
+font-family: ‘Oswald’, sans-serif;
+font-size: 10px;
+letter-spacing: 3.5px;
+color: var(–amber);
+text-transform: uppercase;
+margin-bottom: 6px;
 }
 .hdr-title {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 34px; font-weight: 900;
-  color: white; line-height: 1.1; letter-spacing: -1px;
+font-family: ‘Noto Sans JP’, sans-serif;
+font-size: 34px;
+font-weight: 900;
+color: white;
+line-height: 1.1;
+letter-spacing: -1px;
 }
-.hdr-title span { color: #E8C16A; }
-.hdr-sub { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 7px; }
+.hdr-title span { color: var(–amber); }
+.hdr-sub {
+color: rgba(255,255,255,0.55);
+font-size: 12px;
+margin-top: 7px;
+letter-spacing: 0.3px;
+}
 .hdr-right { text-align: right; flex-shrink: 0; }
 .version-tag {
-  background: var(--accent);
-  color: white; font-family: 'Oswald', sans-serif;
-  font-size: 13px; letter-spacing: 2px;
-  padding: 4px 14px; border-radius: 3px;
-  display: inline-block; margin-bottom: 8px;
+background: var(–accent);
+color: white;
+font-family: ‘Oswald’, sans-serif;
+font-size: 13px;
+letter-spacing: 2px;
+padding: 4px 14px;
+border-radius: 3px;
+display: inline-block;
+margin-bottom: 8px;
 }
 .score-badges { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
 .score-badge {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.85);
-  font-size: 10px; padding: 3px 10px;
-  border-radius: 3px; letter-spacing: 1px;
+background: rgba(255,255,255,0.1);
+border: 1px solid rgba(255,255,255,0.2);
+color: rgba(255,255,255,0.85);
+font-size: 10px;
+padding: 3px 10px;
+border-radius: 3px;
+letter-spacing: 1px;
+display: inline-block;
 }
 
 /* ── HERO BAND ── */
 .hero-band {
-  background: var(--teal);
-  padding: 10px 32px;
-  display: flex; align-items: center; gap: 10px;
+background: var(–teal);
+padding: 10px 32px;
+display: flex;
+align-items: center;
+gap: 10px;
 }
-.hero-band-text { font-size: 13px; font-weight: 700; color: white; line-height: 1.5; }
-.hero-band-text strong { font-size: 15px; display: block; }
+.hero-band-text {
+font-size: 13px;
+font-weight: 700;
+color: white;
+line-height: 1.5;
+}
+.hero-band-text strong {
+font-size: 15px;
+display: block;
+}
 .hero-icon { font-size: 26px; flex-shrink: 0; }
 
 /* ── BODY ── */
 .body-wrap {
-  background: var(--paper);
-  padding: 22px 26px 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+background: var(–paper);
+padding: 22px 26px 18px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 14px;
 }
 
 /* ── SECTION TITLES ── */
 .sec-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: 11px; letter-spacing: 2.5px;
-  text-transform: uppercase; color: var(--teal);
-  border-bottom: 2px solid var(--teal);
-  padding-bottom: 5px; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 7px;
+font-family: ‘Oswald’, sans-serif;
+font-size: 11px;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+color: var(–teal);
+border-bottom: 2px solid var(–teal);
+padding-bottom: 5px;
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+gap: 7px;
 }
-.sec-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.sec-title .dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(–accent);
+flex-shrink: 0;
+}
 
-/* ── CARD ── */
+/* ── CARD BASE ── */
 .card {
-  background: white; border-radius: 6px; padding: 14px 16px;
-  box-shadow: 0 1px 8px rgba(13,27,42,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+background: white;
+border-radius: 6px;
+padding: 14px 16px;
+box-shadow: 0 1px 8px rgba(13,27,42,0.07), 0 0 0 1px rgba(0,0,0,0.04);
 }
 
 /* ── TARGET ── */
 .target-wrap { grid-column: 1 / 3; }
 .target-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 .target-item {
-  display: flex; gap: 10px; align-items: flex-start;
-  background: #EEF5F2; border-radius: 6px;
-  padding: 11px 12px; border-left: 4px solid var(--teal);
+display: flex;
+gap: 10px;
+align-items: flex-start;
+background: #F0F5F5;
+border-radius: 6px;
+padding: 11px 12px;
+border-left: 4px solid var(–teal);
 }
-.target-item.b { border-left-color: var(--amber); background: #FDF8EE; }
-.target-item.c { border-left-color: #2E86C1; background: #EEF4FA; }
+.target-item.b { border-left-color: var(–accent); background: #FDF5EE; }
+.target-item.c { border-left-color: #8E44AD; background: #F8F0FC; }
 .t-emoji { font-size: 24px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-.t-head { font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px; line-height: 1.5; }
-.t-head em { font-style: normal; color: var(--accent); }
+.t-head { font-size: 12.5px; font-weight: 700; color: var(–navy); margin-bottom: 3px; line-height: 1.5; }
+.t-head em { font-style: normal; color: var(–accent); }
 .t-desc { font-size: 10.5px; color: #555; line-height: 1.6; }
 
-/* ── SCORES ── */
+/* ── SCORES SECTION ── */
 .scores-wrap { grid-column: 1 / 3; }
 .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.score-card { border-radius: 8px; overflow: hidden; border: 1.5px solid rgba(0,0,0,0.07); }
-.score-card-hdr {
-  padding: 9px 14px;
-  display: flex; justify-content: space-between; align-items: center;
+
+.score-card {
+border-radius: 8px;
+overflow: hidden;
+border: 1.5px solid rgba(0,0,0,0.07);
 }
-.score-card-hdr.qsofa { background: #162B45; }
-.score-card-hdr.news2 { background: #117A65; }
+.score-card-hdr {
+padding: 9px 14px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.score-card-hdr.qsofa { background: #1A3050; }
+.score-card-hdr.news2  { background: #0E7C7B; }
 .score-card-name {
-  font-family: 'Oswald', sans-serif;
-  font-size: 17px; font-weight: 700; color: white; letter-spacing: 1px;
+font-family: ‘Oswald’, sans-serif;
+font-size: 17px;
+font-weight: 700;
+color: white;
+letter-spacing: 1px;
 }
 .score-card-full { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 1px; }
 .score-card-badge {
-  background: rgba(255,255,255,0.
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.25);
+color: white;
+font-size: 9px;
+padding: 2px 8px;
+border-radius: 20px;
+font-weight: 700;
+}
+.score-card-body { background: white; padding: 10px 14px; }
+.score-items { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.score-item {
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 11px;
+color: var(–ink);
+padding: 4px 0;
+border-bottom: 1px solid #F0F0F0;
+}
+.score-item:last-child { border-bottom: none; }
+.score-item-num {
+width: 22px; height: 22px;
+border-radius: 50%;
+background: var(–teal);
+color: white;
+font-family: ‘Oswald’, sans-serif;
+font-size: 11px;
+font-weight: 700;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+}
+.score-item-num.navy { background: var(–navy); }
+.score-item-label { flex: 1; font-weight: 500; }
+.score-item-val { font-size: 10px; color: #777; }
+
+/* risk levels */
+.risk-levels { display: flex; gap: 3px; }
+.risk-lv {
+flex: 1;
+border-radius: 4px;
+padding: 5px 4px;
+text-align: center;
+}
+.risk-lv.low  { background: #EAF7EE; border: 1px solid var(–low); }
+.risk-lv.mid  { background: #FDF3E7; border: 1px solid var(–mid); }
+.risk-lv.high { background: #FDECEB; border: 1px solid var(–high); }
+.risk-lv-score { font-family: ‘Oswald’, sans-serif; font-size: 13px; font-weight: 700; }
+.risk-lv.low  .risk-lv-score { color: var(–low); }
+.risk-lv.mid  .risk-lv-score { color: var(–mid); }
+.risk-lv.high .risk-lv-score { color: var(–high); }
+.risk-lv-label { font-size: 9px; font-weight: 700; margin-top: 1px; }
+.risk-lv.low  .risk-lv-label { color: var(–low); }
+.risk-lv.mid  .risk-lv-label { color: var(–mid); }
+.risk-lv.high .risk-lv-label { color: var(–high); }
+.risk-lv-action { font-size: 8px; color: #666; margin-top: 2px; line-height: 1.3; }
+
+/* ── FEATURES ── */
+.features-wrap { grid-column: 1 / 2; }
+.feat-list { display: flex; flex-direction: column; gap: 8px; }
+.feat {
+display: flex;
+gap: 10px;
+align-items: flex-start;
+padding: 9px 11px;
+background: #F5F7F2;
+border-radius: 5px;
+border-left: 3px solid var(–teal);
+}
+.feat.hot { border-left-color: var(–accent); background: #FDF5EE; }
+.feat-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; line-height: 1; }
+.feat-title { font-size: 12px; font-weight: 700; color: var(–navy); margin-bottom: 2px; }
+.feat-desc { font-size: 10px; color: #555; line-height: 1.6; }
+
+/* ── FLOW ── */
+.flow-wrap { grid-column: 2 / 3; }
+.flow-steps {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 6px;
+position: relative;
+}
+.flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 4px; }
+.flow-num {
+width: 38px; height: 38px;
+border-radius: 50%;
+background: var(–navy);
+color: white;
+font-family: ‘Oswald’, sans-serif;
+font-size: 18px;
+font-weight: 700;
+display: flex; align-items: center; justify-content: center;
+z-index: 1;
+margin-bottom: 6px;
+border: 3px solid white;
+box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.flow-step:nth-child(2) .flow-num { background: var(–teal); }
+.flow-step:nth-child(3) .flow-num { background: var(–accent); }
+.flow-emoji { font-size: 16px; margin-bottom: 3px; }
+.flow-title { font-size: 11px; font-weight: 700; color: var(–navy); margin-bottom: 2px; line-height: 1.35; }
+.flow-desc { font-size: 9.5px; color: #666; line-height: 1.5; }
+
+/* second row */
+.flow-steps-2 {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 6px;
+margin-top: 8px;
+}
+.flow-step-2 { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.flow-num-2 {
+width: 38px; height: 38px;
+border-radius: 50%;
+color: white;
+font-family: ‘Oswald’, sans-serif;
+font-size: 18px;
+font-weight: 700;
+display: flex; align-items: center; justify-content: center;
+margin-bottom: 6px;
+border: 3px solid white;
+box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.sn4 { background: #27AE60; }
+.sn5 { background: var(–danger); }
+
+/* ── BOTTOM ROW ── */
+.bottom-row { grid-column: 1 / 3; display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; }
+
+/* ── MOCK SCREENS ── */
+.mock-screens {
+display: flex;
+gap: 10px;
+padding: 12px;
+background: #DDE3E3;
+border-radius: 6px;
+}
+.phone {
+flex: 1;
+background: white;
+border-radius: 10px;
+border: 1.5px solid #B8C4C4;
+overflow: hidden;
+box-shadow: 0 5px 16px rgba(0,0,0,0.13);
+}
+.phone-hdr {
+background: var(–navy);
+padding: 5px 8px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 7.5px;
+font-weight: 700;
+color: white;
+}
+.phone-hdr .ver { color: rgba(255,255,255,0.45); }
+.phone-tabs {
+display: flex;
+border-bottom: 1px solid #E8ECEC;
+}
+.p-tab {
+flex: 1;
+text-align: center;
+font-size: 7px;
+font-weight: 700;
+padding: 4px 2px;
+color: #888;
+}
+.p-tab.active { background: var(–navy); color: white; border-radius: 0; }
+.phone-body { padding: 7px 6px; }
+.p-label { font-size: 7.5px; font-weight: 700; color: var(–ink); margin-bottom: 3px; }
+.p-input {
+background: #F5F7F9;
+border: 1px solid #DDE3EC;
+border-radius: 4px;
+padding: 4px 6px;
+font-size: 7px;
+color: var(–ink);
+margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.p-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 4px; }
+.p-btn-orange {
+background: var(–amber);
+border-radius: 4px;
+padding: 5px;
+text-align: center;
+font-size: 7.5px;
+font-weight: 700;
+color: white;
+margin-bottom: 4px;
+}
+.p-result-danger {
+background: #FDECEB;
+border: 1.5px solid var(–danger);
+border-radius: 4px;
+padding: 5px 6px;
+text-align: center;
+}
+.p-result-score { font-size: 9.5px; font-weight: 900; color: var(–danger); }
+.p-result-risk  { font-size: 7.5px; font-weight: 700; color: var(–danger); }
+.p-result-note  { font-size: 6.5px; color: #888; margin-top: 1px; }
+
+.p-sbar {
+background: #F7F9F9;
+border: 1px solid #DDE3EC;
+border-radius: 4px;
+padding: 6px;
+font-size: 6.5px;
+line-height: 1.75;
+color: #2C2C2C;
+}
+.p-sbar-title {
+font-size: 7.5px;
+font-weight: 700;
+margin-bottom: 4px;
+padding-left: 4px;
+border-left: 2.5px solid var(–teal);
+}
+
+/* ── PRICING ── */
+.pricing-card {
+background: var(–navy);
+color: white;
+border-radius: 6px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+box-shadow: 0 4px 20px rgba(18,41,74,0.3);
+}
+.pricing-top {
+padding: 16px 18px 12px;
+position: relative;
+overflow: hidden;
+flex: 1;
+}
+.pricing-top::after {
+content: ‘📈’;
+position: absolute;
+right: 10px; top: 10px;
+font-size: 80px;
+opacity: 0.06;
+pointer-events: none;
+}
+.plan-eyebrow {
+font-family: ‘Oswald’, sans-serif;
+font-size: 10px;
+letter-spacing: 2.5px;
+color: var(–amber);
+margin-bottom: 7px;
+}
+.plan-name {
+font-size: 19px;
+font-weight: 900;
+line-height: 1.25;
+margin-bottom: 10px;
+}
+.plan-name span { color: var(–amber); }
+
+.plan-free-box {
+background: rgba(255,255,255,0.07);
+border: 1px solid rgba(255,255,255,0.12);
+border-radius: 5px;
+padding: 8px 11px;
+margin-bottom: 9px;
+}
+.plan-free-label { font-size: 9px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+.plan-free-val { font-size: 12.5px; font-weight: 700; }
+.plan-free-limit { font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+
+.plan-paid-box {
+background: var(–accent);
+border-radius: 5px;
+padding: 10px 11px;
+margin-bottom: 10px;
+}
+.plan-paid-label { font-size: 9px; color: rgba(255,255,255,0.8); margin-bottom: 3px; }
+.plan-price {
+font-family: ‘Oswald’, sans-serif;
+font-size: 27px;
+font-weight: 700;
+color: white;
+line-height: 1;
+}
+.plan-price sub { font-size: 12px; font-family: ‘Noto Sans JP’, sans-serif; }
+.plan-price sup { font-size: 13px; }
+.plan-price-note { font-size: 9px; color: rgba(255,255,255,0.8); margin-top: 3px; }
+
+.plan-perks { display: flex; flex-direction: column; gap: 5px; }
+.perk {
+display: flex;
+align-items: flex-start;
+gap: 7px;
+font-size: 10.5px;
+color: rgba(255,255,255,0.85);
+}
+.perk::before { content: ‘✓’; color: var(–amber); font-weight: 700; flex-shrink: 0; }
+
+/* ── QR BOTTOM ── */
+.pricing-bottom {
+border-top: 1px solid rgba(255,255,255,0.1);
+padding: 12px 18px;
+display: flex;
+gap: 12px;
+align-items: center;
+}
+.qr-canvas-wrap {
+width: 64px; height: 64px;
+background: white;
+border-radius: 5px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+padding: 4px;
+}
+#qr-yocho canvas, #qr-yocho img {
+width: 56px !important;
+height: 56px !important;
+}
+.qr-info { display: flex; flex-direction: column; justify-content: center; }
+.qr-label { font-size: 9px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+.qr-scan-link {
+display: inline-flex;
+align-items: center;
+gap: 7px;
+background: var(–accent);
+color: white;
+text-decoration: none;
+padding: 8px 13px;
+border-radius: 5px;
+margin-bottom: 6px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.qr-scan-link:hover { opacity: 0.85; }
+.qr-scan-icon { font-size: 17px; line-height: 1; }
+.qr-scan-text { font-size: 12.5px; font-weight: 700; color: white; }
+.qr-arrow { font-size: 13px; opacity: 0.75; color: white; }
+.qr-note { font-size: 9px; color: rgba(255,255,255,0.35); }
+
+/* ── FOOTER ── */
+footer {
+background: var(–ink);
+color: rgba(255,255,255,0.4);
+font-size: 9px;
+text-align: center;
+padding: 7px 24px;
+line-height: 1.7;
+letter-spacing: 0.3px;
+}
+footer strong { color: rgba(255,255,255,0.7); }
+
+@media print { body { width: 210mm; margin: 0; } }
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="hdr-stripe"></div>
+  <div class="hdr-body">
+    <div>
+      <div class="hdr-eyebrow">Early Warning &amp; Clinical Support App</div>
+      <div class="hdr-title">予兆キャッチャー <span>Pro+</span></div>
+      <div class="hdr-sub">qSOFA・NEWS2スコアで、患者の急変を「見逃さない」。記録・報告まで一気に完結。</div>
+    </div>
+    <div class="hdr-right">
+      <div class="version-tag">Ver. 4.6</div>
+      <div class="score-badges">
+        <span class="score-badge">qSOFA 対応</span>
+        <span class="score-badge">NEWS2 対応</span>
+        <span class="score-badge">SBAR / SOAP 生成</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO BAND -->
+
+<div class="hero-band">
+  <div class="hero-icon">📈</div>
+  <div class="hero-band-text">
+    <strong>「なんか変」を数値で証明。急変の予兆を早期に察知し、チームへ迅速に伝える。</strong>
+    病棟看護師・訪問看護・高齢者施設のオンコール対応 ／ 急変対応に不安な方 ／ 新人看護師の学習サポートまで
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- TARGET -->
+
+  <div class="target-wrap">
+    <div class="card">
+      <div class="sec-title"><span class="dot"></span>こんな方におすすめ ─ 3つのシーン</div>
+      <div class="target-grid">
+        <div class="target-item">
+          <div class="t-emoji">😟</div>
+          <div>
+            <div class="t-head">急変の予兆、<em>見逃していないか不安…</em></div>
+            <div class="t-desc">「なんか変だけど数値をどう解釈すれば？」qSOFA・NEWS2スコアが自動計算され、リスクを客観的に判断できます。</div>
+          </div>
+        </div>
+        <div class="target-item b">
+          <div class="t-emoji">🌙</div>
+          <div>
+            <div class="t-head">夜間オンコール、<em>一人で対応が不安…</em></div>
+            <div class="t-desc">バイタルを入力するだけでリスク評価＋医師へのSBAR報告文を自動生成。深夜でも迷わず的確な報告ができます。</div>
+          </div>
+        </div>
+        <div class="target-item c">
+          <div class="t-emoji">🌱</div>
+          <div>
+            <div class="t-head">新人看護師、<em>急変対応を学びながら使いたい！</em></div>
+            <div class="t-desc">実際の患者情報を入力するたびにqSOFA・NEWS2の考え方が身につく。「なぜ高リスクか」が自然とわかる実践型学習ツール。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORES -->
+
+  <div class="scores-wrap">
+    <div class="card">
+      <div class="sec-title"><span class="dot"></span>2つのスコアで急変リスクを評価</div>
+      <div class="scores-grid">
+
+```
+    <!-- qSOFA -->
+    <div class="score-card">
+      <div class="score-card-hdr qsofa">
+        <div>
+          <div class="score-card-name">qSOFA</div>
+          <div class="score-card-full">quick SOFA Score（敗血症スクリーニング）</div>
+        </div>
+        <div class="score-card-badge">簡易・即時</div>
+      </div>
+      <div class="score-card-body">
+        <div class="score-items">
+          <div class="score-item">
+            <div class="score-item-num navy">1</div>
+            <div class="score-item-label">意識レベル低下（ACVPU：C/V/P/U）</div>
+            <div class="score-item-val">+1点</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-num navy">2</div>
+            <div class="score-item-label">呼吸数 ≧ 22回/分</div>
+            <div class="score-item-val">+1点</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-num navy">3</div>
+            <div class="score-item-label">収縮期血圧 ≦ 100mmHg</div>
+            <div class="score-item-val">+1点</div>
+          </div>
+        </div>
+        <div class="risk-levels">
+          <div class="risk-lv low">
+            <div class="risk-lv-score">0点</div>
+            <div class="risk-lv-label">低リスク</div>
+            <div class="risk-lv-action">通常観察</div>
+          </div>
+          <div class="risk-lv mid">
+            <div class="risk-lv-score">1点</div>
+            <div class="risk-lv-label">要注意</div>
+            <div class="risk-lv-action">注意観察</div>
+          </div>
+          <div class="risk-lv high">
+            <div class="risk-lv-score">2-3点</div>
+            <div class="risk-lv-label">高リスク</div>
+            <div class="risk-lv-action">至急報告</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS2 -->
+    <div class="score-card">
+      <div class="score-card-hdr news2">
+        <div>
+          <div class="score-card-name">NEWS2</div>
+          <div class="score-card-full">National Early Warning Score 2</div>
+        </div>
+        <div class="score-card-badge">高精度・詳細</div>
+      </div>
+      <div class="score-card-body">
+        <div class="score-items">
+          <div class="score-item">
+            <div class="score-item-num">①</div>
+            <div class="score-item-label">呼吸数</div>
+            <div class="score-item-val">0-3点</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-num">②</div>
+            <div class="score-item-label">SpO2（スケール1/2選択）</div>
+            <div class="score-item-val">0-3点</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-num">③</div>
+            <div class="score-item-label">収縮期血圧 / 心拍数 / 体温</div>
+            <div class="score-item-val">各0-3点</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-num">④</div>
+            <div class="score-item-label">意識（ACVPU）/ 酸素投与</div>
+            <div class="score-item-val">0-3点</div>
+          </div>
+        </div>
+        <div class="risk-levels">
+          <div class="risk-lv low">
+            <div class="risk-lv-score">0-4</div>
+            <div class="risk-lv-label">低リスク</div>
+            <div class="risk-lv-action">定期観察</div>
+          </div>
+          <div class="risk-lv mid">
+            <div class="risk-lv-score">5-6</div>
+            <div class="risk-lv-label">中リスク</div>
+            <div class="risk-lv-action">早急に報告</div>
+          </div>
+          <div class="risk-lv high">
+            <div class="risk-lv-score">7+</div>
+            <div class="risk-lv-label">高リスク</div>
+            <div class="risk-lv-action">緊急対応</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- FEATURES -->
+
+  <div class="features-wrap">
+    <div class="card">
+      <div class="sec-title"><span class="dot"></span>主な機能・特徴</div>
+      <div class="feat-list">
+        <div class="feat hot">
+          <div class="feat-icon">⚡</div>
+          <div>
+            <div class="feat-title">qSOFA＋NEWS2をワンストップで計算</div>
+            <div class="feat-desc">バイタルを入力するだけで両スコアを自動算出。COPDなどへのSpO2スケール2にも対応。</div>
+          </div>
+        </div>
+        <div class="feat hot">
+          <div class="feat-icon">📞</div>
+          <div>
+            <div class="feat-title">SBAR報告文を自動生成</div>
+            <div class="feat-desc">状況・背景・判断・提言の4項目が整った医師報告文を即座に作成。「コピー」で報告もスムーズ。</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📝</div>
+          <div>
+            <div class="feat-title">SOAP記録も同時生成</div>
+            <div class="feat-desc">18症状・15既往・18薬剤から選択。電子カルテへそのままペーストできる看護記録が完成。</div>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🎓</div>
+          <div>
+            <div class="feat-title">使うほど臨床判断力がつく</div>
+            <div class="feat-desc">スコアの意味・リスク根拠を見ながら入力することで、急変アセスメントの思考回路が自然と養われます。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW -->
+
+  <div class="flow-wrap">
+    <div class="card">
+      <div class="sec-title"><span class="dot"></span>使い方 ─ 簡単５ステップ</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-emoji">🚨</div>
+          <div class="flow-title">緊急症状を確認</div>
+          <div class="flow-desc">心肺停止・脳卒中疑いを最初にチェック</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-emoji">🧮</div>
+          <div class="flow-title">qSOFA入力・判定</div>
+          <div class="flow-desc">意識・呼吸数・血圧の3項目を選択</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-emoji">📊</div>
+          <div class="flow-title">NEWS2詳細入力</div>
+          <div class="flow-desc">SpO2・HR・BT・SpO2スケール設定</div>
+        </div>
+      </div>
+      <div class="flow-steps-2">
+        <div class="flow-step-2">
+          <div class="flow-num-2 sn4">4</div>
+          <div class="flow-emoji">🚦</div>
+          <div class="flow-title">リスク判定表示</div>
+          <div class="flow-desc">低・中・高リスクで即時表示</div>
+        </div>
+        <div class="flow-step-2">
+          <div class="flow-num-2 sn5">5</div>
+          <div class="flow-emoji">📋</div>
+          <div class="flow-title">SBAR・SOAP生成＆コピー</div>
+          <div class="flow-desc">医師報告・カルテ記録がそのまま完成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW -->
+
+  <div class="bottom-row">
+
+```
+<!-- MOCK SCREENS -->
+<div class="card">
+  <div class="sec-title"><span class="dot"></span>アプリ画面プレビュー</div>
+  <div class="mock-screens">
+
+    <!-- Screen A: NEWS2入力 -->
+    <div class="phone">
+      <div class="phone-hdr">
+        <span>📈 予兆キャッチャー Pro+</span>
+        <span class="ver">v4.6</span>
+      </div>
+      <div class="phone-tabs">
+        <div class="p-tab">qSOFA</div>
+        <div class="p-tab active">NEWS2</div>
+        <div class="p-tab">報告・記録</div>
+      </div>
+      <div class="phone-body">
+        <div class="p-label">SpO2ターゲット設定</div>
+        <div class="p-input"><span>スケール1（通常患者：≧96%）</span><span>⌄</span></div>
+        <div class="p-row">
+          <div>
+            <div class="p-label">呼吸数</div>
+            <div class="p-input">22</div>
+          </div>
+          <div>
+            <div class="p-label">SpO2 (%)</div>
+            <div class="p-input">90</div>
+          </div>
+        </div>
+        <div class="p-row">
+          <div>
+            <div class="p-label">収縮期血圧</div>
+            <div class="p-input">122</div>
+          </div>
+          <div>
+            <div class="p-label">心拍数</div>
+            <div class="p-input">100</div>
+          </div>
+        </div>
+        <div class="p-row">
+          <div>
+            <div class="p-label">体温 (℃)</div>
+            <div class="p-input">36.5</div>
+          </div>
+          <div>
+            <div class="p-label">意識(ACVPU)</div>
+            <div class="p-input"><span>V: 呼びかけ</span><span>⌄</span></div>
+          </div>
+        </div>
+        <div class="p-btn-orange">NEWS2判定を完了して報告へ</div>
+        <div class="p-result-danger">
+          <div class="p-result-score">NEWS2スコア：9点</div>
+          <div class="p-result-risk">高リスク（緊急対応）</div>
+          <div class="p-result-note">継続的モニタリングが必要</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen B: SBAR報告 -->
+    <div class="phone">
+      <div class="phone-hdr">
+        <span>📞 SBAR報告文</span>
+        <span class="ver">生成済</span>
+      </div>
+      <div class="phone-body" style="padding-top:9px;">
+        <div class="p-result-danger" style="margin-bottom:6px;">
+          <div class="p-result-score">NEWS2スコア：9点</div>
+          <div class="p-result-risk">高リスク（緊急対応）</div>
+        </div>
+        <div class="p-sbar-title">📞 SBAR報告</div>
+        <div class="p-sbar">
+          【状況】NEWS2スコア:9点。息苦しい<br>
+          【背景】末梢冷感、チアノーゼ、喘鳴あり。既往:心不全、Ca拮抗薬/β遮断薬使用あり<br>
+          【判断】高リスク（緊急対応）。継続的モニタリングが必要<br>
+          【提言】指示の範囲外のため今後の指示を依頼
+        </div>
+        <div style="margin-top:5px;">
+        <div class="p-sbar-title" style="border-left-color:#1A3050;">📝 SOAP記録</div>
+        <div class="p-sbar">
+          S：息苦しい<br>
+          O：末梢冷感、チアノーゼ、喘鳴あり。（呼吸:22回, SpO2:90%, BP:122, HR:100, BT:36.5℃, 意識:V）NEWS2スコア:9点<br>
+          A：高リスク。緊急対応必要<br>
+          P：Dr.報告・継続モニタリング
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-card">
+  <div class="pricing-top">
+    <div class="plan-eyebrow">SUBSCRIPTION PLAN</div>
+    <div class="plan-name">解除コードで<br><span>フル機能</span>を開放</div>
+
+    <div class="plan-free-box">
+      <div class="plan-free-label">🆓 無料プラン（まずは試す）</div>
+      <div class="plan-free-val">報告文生成：月5回まで</div>
+      <div class="plan-free-limit">qSOFA・NEWS2判定は無制限で使えます</div>
+    </div>
+
+    <div class="plan-paid-box">
+      <div class="plan-paid-label">⭐ 有料プラン（解除コード）</div>
+      <div class="plan-price"><sup>¥</sup>———<sub>/月</sub></div>
+      <div class="plan-price-note">SBAR・SOAP生成 無制限 ／ 全機能開放</div>
+    </div>
+
+    <div class="plan-perks">
+      <div class="perk">SBAR・SOAP報告文が無制限に</div>
+      <div class="perk">18症状・15既往・18薬剤から選択記録</div>
+      <div class="perk">COPDへのSpO2スケール2対応</div>
+      <div class="perk">インストール不要・ブラウザで動く</div>
+      <div class="perk">スマホ・タブレット・PC完全対応</div>
+    </div>
+  </div>
+
+  <div class="pricing-bottom">
+    <div class="qr-canvas-wrap">
+      <div id="qr-yocho"></div>
+    </div>
+    <div class="qr-info">
+      <div class="qr-label">QRコードを読み取ってアクセス</div>
+      <a href="https://tacchibanana.github.io/clinical-support-yotyocatch/" target="_blank" class="qr-scan-link">
+        <span class="qr-scan-icon">📲</span>
+        <span class="qr-scan-text">今すぐ無料で試す</span>
+        <span class="qr-arrow">→</span>
+      </a>
+      <div class="qr-note">© 2026 TACCHIBANANA</div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <strong>予兆キャッチャー Pro+ Ver.4.6</strong>　｜　qSOFA・NEWS2スコア準拠　｜　© 2026 TACCHIBANANA
+  <br>⚠️ 本ツールは医療機器・診断プログラムではありません。スコア計算の補助ツールとして使用してください。最終的な医療判断は必ず医師・所属施設のプロトコルに従ってください。
+</footer>
+
+<script>
+  new QRCode(document.getElementById("qr-yocho"), {
+    text: "https://tacchibanana.github.io/clinical-support-yotyocatch/",
+    width: 56,
+    height: 56,
+    colorDark: "#1A3050",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+</script>
+
+</body>
+</html>
